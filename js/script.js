@@ -55,3 +55,36 @@ function toggleDmIG() {
 		icon.classList.remove("arrow")
 	}, 500)
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+	// Ambil semua tombol filter dan proyek
+	const filterButtons = document.querySelectorAll('.filter-btn');
+	const projects = document.querySelectorAll('.project');
+
+	// Tambahkan event listener untuk setiap tombol filter
+	filterButtons.forEach(button => {
+		button.addEventListener('click', () => {
+			// Hapus kelas active dari semua tombol
+			filterButtons.forEach(btn => btn.classList.remove('active'));
+			
+			// Tambahkan kelas active ke tombol yang diklik
+			button.classList.add('active');
+			
+			// Ambil kategori yang dipilih
+			const selectedCategory = button.getAttribute('data-category');
+			
+			// Filter proyek berdasarkan kategori
+			projects.forEach(project => {
+				const projectCategory = project.getAttribute('data-category');
+				
+				if (selectedCategory === 'all' || selectedCategory === projectCategory) {
+					project.classList.remove('hide');
+					project.style.opacity = '1';
+				} else {
+					project.classList.add('hide');
+					project.style.opacity = '0';
+				}
+			});
+		});
+	});
+});
